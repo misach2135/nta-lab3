@@ -138,13 +138,19 @@ namespace lab3
                 }
             }
 
+            Console.WriteLine("Result: {0}", ToString());
+
             for (int j = 0; j < ColsCount - 1; j++)
             {
                 for (int i = 0; i < RowsCount; i++)
                 {
                     if (data[i, j] == 0) continue;
 
-                    Utils.ExtendedGCD(data[i, j], mod, out BigInteger inversed);
+                    var gcd = Utils.ExtendedGCD(data[i, j], mod, out BigInteger inversed);
+                    if (gcd != 1)
+                    {
+                        continue;
+                    }
                     res[j] = (Utils.Mod(inversed * data[i, ColsCount - 1], mod));
                 }
             }

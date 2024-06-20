@@ -46,16 +46,30 @@ namespace lab3
                 }
             }
         }
+        
+        private void checkSmoothness()
+        {
+
+        }
+
+        private void formEquation()
+        {
+
+        }
 
         public BigInteger Solve()
         {
-            const int c = 10;
+            const int c = 40; // bigger-- more accurate, but slower
+            
             int rowIndex = 0;
             BigInteger res = 0;
-            ModMatrix matrix = new ModMatrix(factorBase.Count + c, factorBase.Count + 1, n - 1);      
+            ModMatrix matrix = new ModMatrix(factorBase.Count + c, factorBase.Count + 1, n - 1);
+            SortedSet<BigInteger> usedK = [];
             while (rowIndex < factorBase.Count + c)
             {
                 var k = Utils.RandInt(n);
+                if (usedK.Contains(k)) continue;
+                usedK.Add(k);
                 var powAlpha = BigInteger.ModPow(alpha, k, n);
                 var factorPowAlpha = Utils.Factor(powAlpha);
                 if (factorPowAlpha.Count >= factorBase.Count) continue;

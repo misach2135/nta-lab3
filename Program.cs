@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Numerics;
 
 namespace lab3
@@ -8,8 +9,15 @@ namespace lab3
         static void Main(string[] args)
         {
             Console.WriteLine(Utils.PrimeTest(4));
-            var indexSolver = new IndexSolver(1159268, 1016956, 1846121);
-            Console.WriteLine(indexSolver.Solve());
+            var indexSolver = new IndexSolver(2586203, 2115834, 6707689);
+            List<BigInteger> res = [];
+
+            for (int i = 0; i < 20; i++)
+            {
+                res.Add(indexSolver.Solve());
+            }
+
+            Console.WriteLine("res: {0}", string.Join(',', res));
 
             //ModMatrix modMatrix = new ModMatrix(new BigInteger[,] {
             //    { 1, 0, 1, 0, 1},

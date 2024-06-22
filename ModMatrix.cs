@@ -99,6 +99,16 @@ namespace lab3
             }
         }
 
+        public void Clear()
+        {
+            for (int i = 0; i < RowsCount; i++)
+            {
+                for (int j = 0; j < ColsCount; j++)
+                {
+                    data[i, j] = 0;
+                }
+            }
+        }
         public void SwapCols(int col1, int col2)
         {
             for (int i = 0; i < RowsCount; i++)
@@ -138,7 +148,7 @@ namespace lab3
                 }
             }
 
-            Console.WriteLine("Result: {0}", ToString());
+            // Console.WriteLine("Result: {0}", ToString());
 
             for (int j = 0; j < ColsCount - 1; j++)
             {

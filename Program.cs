@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Numerics;
+using System.Diagnostics;
+using System.Linq;
 
 namespace lab3
 {
@@ -9,15 +11,50 @@ namespace lab3
         static void Main(string[] args)
         {
             Console.WriteLine(Utils.PrimeTest(4));
-            var indexSolver = new IndexSolver(2586203, 2115834, 6707689);
-            List<BigInteger> res = [];
+            
+            string input = "";
 
-            for (int i = 0; i < 20; i++)
+            Stopwatch sw = new Stopwatch();
+
+            Console.WriteLine("Enter params, separeted with space: ");
+            input = Console.ReadLine();
+            string[] param = input.Split(' ');
+
+            var alpha = BigInteger.Parse(param[0]);
+            var beta = BigInteger.Parse(param[1]);
+            var n = BigInteger.Parse(param[2]);
+
+            var indexSolver = new IndexSolver(alpha, beta, n);
+
+            input = "";
+            while(input != "exit")
             {
-                res.Add(indexSolver.Solve());
-            }
+                
+                Console.WriteLine("Entry mode, in which you want to solve DLP(one, multi, exit): ");
+                input = Console.ReadLine();
+            
+                sw.Reset();
+                if(input == "one")
+                {
+                    sw.Start();
+                    var res1 = indexSolver.SolveOneThread();
+                    sw.Stop();
+                    Console.WriteLine("(One-threaded)   Execution ended for {0} ms. with result {1}", sw.ElapsedMilliseconds, res1);
+                }
+                if (input == "multi")
+                {
+                    sw.Start();
+                    var res2 = indexSolver.SolveMultiThread();
+                    sw.Stop();
+                    Console.WriteLine("(Multi-threaded) Execution ended for {0} ms. with result {1}", sw.ElapsedMilliseconds, res2);
 
-            Console.WriteLine("res: {0}", string.Join(',', res));
+                }
+
+            }
+            
+
+
+            
 
             //ModMatrix modMatrix = new ModMatrix(new BigInteger[,] {
             //    { 1, 0, 1, 0, 1},
